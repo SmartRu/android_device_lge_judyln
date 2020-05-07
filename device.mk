@@ -27,8 +27,8 @@ DEVICE_PACKAGE_OVERLAYS += \
     $(DEVICE_PATH)/overlay-lineage
 
 # Properties
--include $(DEVICE_PATH)/system_prop.mk
--include $(DEVICE_PATH)/vendor_prop.mk
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 
 # Audio
 PRODUCT_COPY_FILES += \
@@ -36,6 +36,7 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/audio/audio_platform_info_i2s.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_i2s.xml \
     $(DEVICE_PATH)/audio/audio_platform_info_mono.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_mono.xml \
     $(DEVICE_PATH)/audio/audio_policy.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy.conf \
+    $(DEVICE_PATH)/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/audio_policy_configuration.xml \
     $(DEVICE_PATH)/audio/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
     $(DEVICE_PATH)/audio/audio_policy_volumes_lge.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes_lge.xml \
     $(DEVICE_PATH)/audio/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
@@ -59,6 +60,10 @@ $(foreach f,$(wildcard $(DEVICE_PATH)/rootdir/bin/*.sh),\
 PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/configs/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
 
+# Lights
+PRODUCT_PACKAGES += \
+    android.hardware.light@2.0-service.judyln
+
 # Keymaster 4
 #PRODUCT_COPY_FILES += \
 #    $(DEVICE_PATH)/configs/android.hardware.keymaster@4.0-service-qti.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.keymaster@4.0-service-qti.rc
@@ -76,6 +81,14 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.hifi_sensors.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.hifi_sensors.xml \
     frameworks/native/data/etc/com.android.nfc_extras.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.android.nfc_extras.xml \
     frameworks/native/data/etc/com.nxp.mifare.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.nxp.mifare.xml
+
+#GCam Go
+PRODUCT_PACKAGES += \
+    GCam
+
+#GCam 6.1
+PRODUCT_PACKAGES += \
+    GCam6
 
 # common judy (sdm845)
 $(call inherit-product, device/lge/sdm845-common/sdm845.mk)

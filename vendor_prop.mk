@@ -1,3 +1,0 @@
-#
-# vendor props for judyln
-#

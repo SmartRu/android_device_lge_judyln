@@ -21,19 +21,15 @@ DEVICE_PATH := device/lge/judyln
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
-BTHW_FW_EXTENDED_CONFIGURATION := true
-BTHW_FW_EXTENDED_CONFIGURATION_ONLY_I2SPCM_CONFIG = := false
 
 # Camera
 TARGET_USES_YCRCB_VENUS_CAMERA_PREVIEW := true
 
-# HIDL
-DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
-DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
-
 # Kernel
 BOARD_KERNEL_CMDLINE += androidboot.hardware=judyln
 TARGET_KERNEL_CONFIG := judyln_lao_com-perf_defconfig
+
+BOARD_HARDWARE_CLASS := $(DEVICE_PATH)/lineagehw
 
 # Partitions
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 48708296704
@@ -51,6 +47,12 @@ BOARD_ROOT_EXTRA_SYMLINKS := \
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.judyln
+TARGET_PREBUILT_RECOVERY_RAMDISK_CPIO := $(DEVICE_PATH)/ramdisk-recovery.cpio
+
+# Vendor init
+TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_judyln
+TARGET_RECOVERY_DEVICE_MODULES := libinit_judyln
+
 
 # inherit from the proprietary version
 -include vendor/lge/judyln/BoardConfigVendor.mk
